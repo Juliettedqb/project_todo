@@ -37,3 +37,8 @@ app.post('/tasks', async(req, res) => {
     const data = await task.save()
     res.status(200).json(data)
 })
+
+app.get('/tasks', async(req, res) => {
+    const tasks = await Task.find()
+    res.status(200).json(tasks)
+})
