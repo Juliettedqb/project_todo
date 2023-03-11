@@ -15,6 +15,25 @@ app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
   });
 
-app.get('/test', async(request, response) => {
-    response.status(200).send("hello")
+// app.get('/test', async(request, response) => {
+//     response.status(200).send("hello");
+//     const task = new Task({
+//         text : "appeler fumiste",
+//         status : false,
+//         createdAt : new Date()
+//     })
+//     console.log(task)
+//     task.save().then(() => console.log("appeler fumiste"));
+// })
+
+app.post('/tasks', async(req, res) => {
+    console.log(req.body.text)
+    const task = new Task({
+        text : req.body.text,
+        status : false,
+        createdAt : new Date()
+    })
+    console.log(task)
+    const data = await task.save()
+    res.status(200).json(data)
 })
