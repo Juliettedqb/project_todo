@@ -42,3 +42,27 @@ app.get('/tasks', async(req, res) => {
     const tasks = await Task.find()
     res.status(200).json(tasks)
 })
+
+app.put('/tasks/:id/status', async(req, res) => {
+    const id = req.params.id;
+    console.log(id)
+    const task = await Task.findById(id)
+    task.status = true
+    const data = await task.save()
+    res.status(200).json(data)
+})
+
+app.put('/tasks/:id', async(req, res) => {
+    const id = req.params.id;
+    console.log(id)
+    const task = await Task.findById(id)
+    task.text = req.body.text;
+    const data = await task.save()
+    res.status(200).json(data)
+})
+
+app.delete('/tasks/:id', async(req, res) => {
+    const id = req.params.id;
+    const task = await Task.deleteOne({_id: id})
+    res.status(200).json(task)
+})
